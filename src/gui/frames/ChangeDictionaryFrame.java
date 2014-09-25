@@ -28,7 +28,6 @@ public class ChangeDictionaryFrame extends JFrame
 	private LangCoach coach;
 	private JComboBox<Dictionary> comboBox;
 
-
 	public ChangeDictionaryFrame(LangCoach coach)
 	{
 		this.coach = coach;

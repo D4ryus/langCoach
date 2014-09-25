@@ -23,11 +23,11 @@ import database.User;
 
 public class ChangeUserFrame extends JFrame
 {
-	private static final long	serialVersionUID	= -8598941536096896237L;
-	private JPanel	contentPane;
+	private static final long serialVersionUID = -8598941536096896237L;
+	private JPanel contentPane;
 	private LangCoach coach;
 	private JComboBox<User> comboBox;
-	
+
 	public ChangeUserFrame(LangCoach coach)
 	{
 		this.coach = coach;
@@ -51,23 +51,23 @@ public class ChangeUserFrame extends JFrame
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,}));
-		
+
 		comboBox = new JComboBox<User>(User.getUsers(coach.getCon()));
 		contentPane.add(comboBox, "2, 2, 5, 1, fill, default");
-		
+
 		JButton btnOk = new JButton("Ok");
 		btnOk.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { clickedOk(); }});
 		contentPane.add(btnOk, "2, 4");
-		
+
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { clickedCancel(); }});
 		contentPane.add(btnCancel, "4, 4");
-		
+
 		JButton btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { clickedAdd(); }});
 		contentPane.add(btnAdd, "6, 4");
-		
-		JRootPane rootPane = SwingUtilities.getRootPane(btnOk); 
+
+		JRootPane rootPane = SwingUtilities.getRootPane(btnOk);
 		rootPane.setDefaultButton(btnOk);
 	}
 
@@ -76,12 +76,12 @@ public class ChangeUserFrame extends JFrame
 		coach.setUser((User) comboBox.getSelectedItem());
 		this.dispose();
 	}
-	
+
 	private void clickedCancel()
 	{
 		this.dispose();
 	}
-	
+
 	private void clickedAdd()
 	{
 		coach.setUser(coach.addUser(false));

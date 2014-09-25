@@ -7,7 +7,7 @@ public class TimeCalc
 	private static long msPerHour =   3_600_000;
 	private static long msPerMin  =      60_000;
 	private static long msPerSec  =       1_000;
-	
+
 	public static String calcPrettyTime(long diff)
 	{
 		long weeks = diff / msPerWeek;
@@ -29,7 +29,7 @@ public class TimeCalc
 		else
 			return new Long(secs ).toString() + " seconds ago";
 	}
-	
+
 	public static String calcPrettyTime(java.sql.Timestamp time)
 	{
 		if (time  == null)

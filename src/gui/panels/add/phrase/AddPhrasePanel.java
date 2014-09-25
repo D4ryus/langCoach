@@ -11,9 +11,9 @@ public class AddPhrasePanel extends JPanel
 {
 	private static final long serialVersionUID = -6641999063790237418L;
 	Language lang;
-	
+
 	TitledBorder border;;
-	
+
 	public AddPhrasePanel(Language lang)
 	{
 		this.lang = lang;
@@ -21,28 +21,28 @@ public class AddPhrasePanel extends JPanel
 				TitledBorder.LEADING, TitledBorder.TOP, null, null);
 		setBorder(border);
 	}
-	
+
 	public void setLang(Language lang)
 	{
 		this.lang = lang;
 		border.setTitle(lang.getID() + " - " + lang.name);
 	}
-	
+
 	public String getText()
 	{
 		return null;
 	}
-	
+
 	public void clear()
 	{
-		
+
 	}
-	
+
 	public void gainFocus()
 	{
-		
+
 	}
-	
+
 	public Component[] getComponents()
 	{
 		return null;

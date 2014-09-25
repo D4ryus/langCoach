@@ -17,12 +17,12 @@ public class Language extends DBObject
 				"Name,     VARCHAR(128) NOT NULL",
 				"PersPron, VARCHAR(128) NOT NULL"
 			}, new String[] {});
-	
+
 	public Language(Connection con, String id)
 	{
 		super(con, id);
 	}
-		
+
 	public static Language createNew(Connection con, String id, String name, String persPron)
 	{
 		Language lang = null;
@@ -54,20 +54,20 @@ public class Language extends DBObject
 	{
 		return name;
 	}
-	
+
 	public void fillMembers(ResultSet rs) throws SQLException
 	{
 		 super.fillMembers(rs);
-		 
+
 		 name = rs.getString("Name");
 		 persPron = rs.getString("PersPron");
 	}
-	
+
 	public String getTableName()
 	{
 		return tableInfo.tableName;
 	}
-	
+
 	public static Language[] getLanguages(Connection con)
 	{
 		String[] ids = DBObject.getIDs(con, tableInfo);

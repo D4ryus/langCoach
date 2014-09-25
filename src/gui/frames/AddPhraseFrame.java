@@ -44,12 +44,12 @@ public class AddPhraseFrame extends JFrame
 	private AddPhrasePanel panelBot;
 	private JToggleButton conjugButton;
 	private boolean conjugFlag = false;
-	
+
 	private Dictionary frameDictionary;
 	private LangCoach coach;
-	
+
 	private LinkedList<Component> tabOrder;
-	
+
 	public AddPhraseFrame(LangCoach coach)
 	{
 		this.coach = coach;
@@ -75,55 +75,55 @@ public class AddPhraseFrame extends JFrame
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,}));
-		
+
 		comboBox = new JComboBox<>(Dictionary.getDictionaries(coach.getCon()));
 		comboBox.setSelectedItem(frameDictionary);
 		comboBox.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent arg0) { clickedChangeDict(); }});
 		contentPane.add(comboBox, "2, 2, fill, default");
-		
+
 		conjugButton = new JToggleButton("Conjugation");
 		conjugButton.addItemListener(new ItemListener() { public void itemStateChanged(ItemEvent ev) { toggleConjug(ev); }});
 		contentPane.add(conjugButton, "4, 2");
-				
+
 		btnConfirm = new JButton("Confirm");
 		btnConfirm.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent arg0) { clickedConfirm(); }});
 		contentPane.add(btnConfirm, "2, 9, 3, 1");
-		
+
 		mainPanel = new JPanel();
 		contentPane.add(mainPanel, "2, 4, 3, 4, fill, fill");
 		mainPanel.setLayout(new GridLayout(0, 1, 0, 0));
-		
+
 		updateLayout();
-		
-		JRootPane rootPane = SwingUtilities.getRootPane(btnConfirm); 
+
+		JRootPane rootPane = SwingUtilities.getRootPane(btnConfirm);
 		rootPane.setDefaultButton(btnConfirm);
 
 		setMinimumSize(new Dimension(430, 360));
 	}
-	
+
 	private void toggleConjug(ItemEvent e)
 	{
 		if(e.getStateChange() == ItemEvent.SELECTED)
 			conjugFlag = true;
 		else if(e.getStateChange() == ItemEvent.DESELECTED)
 			conjugFlag = false;
-			
+
 		updateLayout();
 	}
-	
+
 	private void clickedChangeDict()
 	{
 		frameDictionary = (Dictionary) comboBox.getSelectedItem();
 		updateLayout();
 	}
-	
+
 	private void updateLayout()
 	{
 		if(panelTop != null)
 			mainPanel.remove(panelTop);
 		if(panelBot != null)
 			mainPanel.remove(panelBot);
-		
+
 		if(conjugFlag)
 		{
 			panelTop = new AddConjugPanel(frameDictionary.getLanguage1());
@@ -152,7 +152,7 @@ public class AddPhraseFrame extends JFrame
 	{
 		String phr1 = panelTop.getText();
 		String phr2 = panelBot.getText();
-		
+
 		if(phr1 != null && phr2 != null)
 		{
 			panelTop.clear();

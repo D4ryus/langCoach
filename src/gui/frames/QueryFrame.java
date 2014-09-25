@@ -19,8 +19,6 @@ import javax.swing.table.AbstractTableModel;
 
 import main.LangCoach;
 
-
-//import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.FormSpecs;
@@ -28,17 +26,17 @@ import com.jgoodies.forms.layout.RowSpec;
 
 public class QueryFrame extends JFrame
 {
-	private static final long	serialVersionUID	= 4624712861462297395L;
-	private JTextArea			queryField;
-	private JTextArea			logField;
-	private QueryTableModel		qtm;
+	private static final long serialVersionUID = 4624712861462297395L;
+	private JTextArea queryField;
+	private JTextArea logField;
+	private QueryTableModel qtm;
 
 	public QueryFrame(LangCoach brain)
 	{
 		super("Query Console");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(478, 535);
-		
+
 		getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
 				FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.DEFAULT_COLSPEC,
@@ -57,23 +55,23 @@ public class QueryFrame extends JFrame
 				FormSpecs.RELATED_GAP_ROWSPEC,}));
 		JScrollPane textScroll = new JScrollPane(queryField = new JTextArea());
 		getContentPane().add(textScroll, "2, 2, 3, 1, fill, fill");
-		
+
 		JButton btnQuery = new JButton("Evaluate");
 		btnQuery.setMnemonic('e');
 		btnQuery.addActionListener(new ActionListener(){ public void actionPerformed(ActionEvent e) { qtm.setQuery(queryField.getText().trim()); }});
 		getContentPane().add(btnQuery, "6, 2");
-		
+
 		JScrollPane scrollPane = new JScrollPane(logField = new JTextArea());
 		getContentPane().add(scrollPane, "2, 6, 5, 1, fill, fill");
 		qtm = new QueryTableModel(brain.getCon(), logField);
-		
+
 		JTable table = new JTable(qtm);
 		JScrollPane scrollpane = new JScrollPane(table);
 		getContentPane().add(scrollpane, "2, 4, 5, 1, fill, fill");
 
-		JRootPane rootPane = SwingUtilities.getRootPane(btnQuery); 
+		JRootPane rootPane = SwingUtilities.getRootPane(btnQuery);
 		rootPane.setDefaultButton(btnQuery);
-		
+
 		setVisible(true);
 	}
 }
@@ -123,7 +121,7 @@ class QueryTableModel extends AbstractTableModel
 				String[] record = new String[columns];
 				for (int i = 0; i < columns; i++)
 					record[i] = rs.getString(i + 1);
-				
+
 				tmp.addElement(record);
 			}
 			fireTableChanged(null);
@@ -136,7 +134,7 @@ class QueryTableModel extends AbstractTableModel
 					+ e.getMessage());
 		}
 	}
-	
+
 	public String getColumnName(int i)
 	{
 		return headers[i];

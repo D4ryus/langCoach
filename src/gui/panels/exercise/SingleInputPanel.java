@@ -19,31 +19,30 @@ public class SingleInputPanel extends JPanel
 
 	public SingleInputPanel()
 	{
-		
 		txt = new JTextField();
 		txt.setHorizontalAlignment(SwingConstants.CENTER);
 		txt.addFocusListener(new FocusAdapter() { public void focusGained(FocusEvent arg0) { txt.selectAll(); }});
 		setLayout(new GridLayout(0, 1, 0, 0));
 		add(txt);
-		
+
 		lblSolution = new JLabel();
 		lblSolution.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSolution.setForeground(Color.BLUE);
 		add(lblSolution);
 	}
-	
+
 	public Component[] getComponents()
 	{
 		Component[] comp = new Component[1];
 		comp[0] = txt;
 		return comp;
 	}
-	
+
 	public void setSolution(String text)
 	{
 		lblSolution.setText(text);
 	}
-	
+
 	public String getAnswer()
 	{
 		return txt.getText();

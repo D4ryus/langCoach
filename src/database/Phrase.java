@@ -26,28 +26,28 @@ public class Phrase extends DBObject
 					"Phrase2, VARCHAR(512) NOT NULL, "
 				}, new String[] {
 					"Dic, Dictionaries"
-				});	
-	
+				});
+
 	public Phrase(Connection con, CorePhrase core, User user)
 	{
 		super(con, String.valueOf(core.id));
 		this.core = core;
 		this.user = user;
-		
+
 		if (core.perfID == 0)
 			this.perf = Performance.createNew(con, Integer.parseInt(user.getID()), core.id);
 		else
 			this.perf = new Performance(con, new Integer(core.perfID).toString());
-		
+
 		core.perfID = Integer.parseInt(this.perf.getID());
 		core.revPhrase.perfID = core.perfID;
 	}
-	
+
 	public Phrase(Connection con, String id)
 	{
 		super(con, id);
 	}
-	
+
 	public static Phrase createNew(Connection con, int dic, boolean conj, String phrase1, String phrase2)
 	{
 		Phrase phrase = null;
@@ -78,7 +78,6 @@ public class Phrase extends DBObject
 		return phrase;
 	}
 
-
 	public static class CorePhrase
 	{
 		public int id;
@@ -94,55 +93,54 @@ public class Phrase extends DBObject
 			this.perfID = perfID;
 			this.reverse = reverse;
 		}
-		
+
 		public Phrase getFullPhrase(Connection con, User user)
 		{
 			return new Phrase(con, this, user);
 		}
 	}
 
-
 	public void fillMembers(ResultSet rs) throws SQLException
 	{
 		 super.fillMembers(rs);
-		 
+
 		 dic = rs.getInt("Dic");
 		 conjug = rs.getBoolean("Conjug");
 		 phrase1 = rs.getString("Phrase1");
 		 phrase2 = rs.getString("Phrase2");
 	}
-	
+
 	public int saveToDB()
 	{
 		int rows = super.saveToDB();
-		
+
 		if(perf != null)
-			perf.saveToDB();	
+			perf.saveToDB();
 		else
 			System.out.println("perf is null on Phrase.saveToDB");
-		
+
 		return rows;
 	}
-	
+
 	public void setDict(Dictionary dict)
 	{
 		this.dict = dict;
 	}
-	
+
 	private Dictionary dict = null;
 	public Dictionary getDict()
 	{
 		if (dict == null)
 			dict = new Dictionary(con, new Integer(dic).toString());
-		
+
 		return dict;
 	}
-	
+
 	public String getTableName()
 	{
 		return tableInfo.tableName;
 	}
-	
+
 	public static CorePhrase[] getPhrases(Connection con, Dictionary dict, User user)
 	{
 		LinkedList<CorePhrase> data = new LinkedList<CorePhrase>();
@@ -151,22 +149,22 @@ public class Phrase extends DBObject
 			PreparedStatement ps = con.prepareStatement(
 					"SELECT Phrases.ID, Success, RevSuccess, Performances.ID " +
 					"FROM Phrases " +
-					"LEFT OUTER JOIN Performances ON Phrases.ID = Phrase AND UserID = ? " + 
+					"LEFT OUTER JOIN Performances ON Phrases.ID = Phrase AND UserID = ? " +
 					"WHERE Phrases.Dic = ?");
-			
+
 			ps.setString(1, user.getID());
 			ps.setString(2, dict.getID());
-			
+
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next())
 			{
 				CorePhrase phrase = new CorePhrase(rs.getInt(1), rs.getInt(2), rs.getInt(4), false);
 				CorePhrase revPhrase = new CorePhrase(rs.getInt(1), rs.getInt(3), rs.getInt(4), true);
-				
+
 				phrase.revPhrase = revPhrase;
 				revPhrase.revPhrase = phrase;
-				
+
 				data.add(phrase);
 				data.add(revPhrase);
 			}
@@ -192,7 +190,7 @@ public class Phrase extends DBObject
 				}
 			}
 		}
- 
+
 		return (CorePhrase[]) data.toArray(new CorePhrase[data.size()]);
 	}
 }

@@ -33,13 +33,13 @@ public class Performance extends DBObject
 			}, new String[] {
 				"UserID, Users",
 				"Phrase, Phrases"
-		});	
-	
+		});
+
 	public Performance(Connection con, String id)
 	{
 		super(con, id);
 	}
-	
+
 	public static Performance createNew(Connection con, int userID, int phrase)
 	{
 		Performance perf = null;
@@ -77,7 +77,7 @@ public class Performance extends DBObject
 	public void fillMembers(ResultSet rs) throws SQLException
 	{
 		super.fillMembers(rs);
-		
+
 		userID         = rs.getInt("UserID");
 		phrase         = rs.getInt("Phrase");
 		success        = rs.getInt("Success");
@@ -87,12 +87,12 @@ public class Performance extends DBObject
 		lastFail       = rs.getTimestamp("LastFail");
 		revLastFail    = rs.getTimestamp("RevLastFail");
 	}
-	
+
 	public PreparedStatement getUpdateStmt() throws SQLException
 	{
 		PreparedStatement ps = con.prepareStatement(
 			"UPDATE " + getTableName() + " SET " +
-		        "Success = ? , "        + 
+		        "Success = ? , "        +
 				"RevSuccess = ? , "     +
 				"LastSuccess = ? , "    +
 				"RevLastSuccess = ? , " +
@@ -110,7 +110,7 @@ public class Performance extends DBObject
 		ps.setInt(8, phrase);
 		return ps;
 	}
-	
+
 	private Phrase phraseObj = null;
 	public Phrase getPhrase()
 	{
@@ -118,7 +118,7 @@ public class Performance extends DBObject
 			phraseObj = new Phrase(con, new Integer(phrase).toString());
 		return phraseObj;
 	}
-	
+
 	public static Performance getLatest(Connection con)
 	{
 		Performance perf = null;
@@ -144,7 +144,7 @@ public class Performance extends DBObject
 	{
 		return tableInfo.tableName;
 	}
-	
+
 	private User user = null;
 	public User getUser()
 	{

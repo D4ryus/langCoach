@@ -29,9 +29,9 @@ public class AddConjugPanel extends AddPhrasePanel
 	private JTextField txt3;
 	private JTextField txt4;
 	private JTextField txt5;
-	
+
 	private Component[] tabComponents;
-	
+
 	public AddConjugPanel(Language lang)
 	{
 		super(lang);
@@ -53,61 +53,61 @@ public class AddConjugPanel extends AddPhrasePanel
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				RowSpec.decode("4dlu:grow"),}));
-		
+
 		lbl0 = new JLabel("New label");
 		add(lbl0, "2, 2, right, default");
-		
+
 		txt0 = new JTextField();
 		add(txt0, "4, 2, fill, default");
 		txt0.setColumns(10);
-		
+
 		lbl3 = new JLabel("New label");
 		add(lbl3, "6, 2, right, default");
-		
+
 		txt3 = new JTextField();
 		add(txt3, "8, 2, fill, default");
 		txt3.setColumns(10);
-		
+
 		lbl1 = new JLabel("New label");
 		add(lbl1, "2, 4, right, default");
-		
+
 		txt1 = new JTextField();
 		add(txt1, "4, 4, fill, default");
 		txt1.setColumns(10);
-		
+
 		lbl4 = new JLabel("New label");
 		add(lbl4, "6, 4, right, default");
-		
+
 		txt4 = new JTextField();
 		add(txt4, "8, 4, fill, default");
 		txt4.setColumns(10);
-		
+
 		lbl2 = new JLabel("New label");
 		add(lbl2, "2, 6, right, default");
-		
+
 		txt2 = new JTextField();
 		add(txt2, "4, 6, fill, default");
 		txt2.setColumns(10);
-		
+
 		lbl5 = new JLabel("New label");
 		add(lbl5, "6, 6, right, default");
-		
+
 		txt5 = new JTextField();
 		add(txt5, "8, 6, fill, default");
 		txt5.setColumns(10);
-		
+
 		tabComponents = new Component[6];
-		
+
 		tabComponents[0] = txt0;
 		tabComponents[1] = txt1;
 		tabComponents[2] = txt2;
 		tabComponents[3] = txt3;
 		tabComponents[4] = txt4;
 		tabComponents[5] = txt5;
-		
+
 		setConjug(lang.persPron.split("#"));
 	}
-	
+
 	public String getText()
 	{
 		if(checkInput())
@@ -120,7 +120,7 @@ public class AddConjugPanel extends AddPhrasePanel
 		else
 			return null;
 	}
-	
+
 	public void setConjug(String[] text)
 	{
 		lbl0.setText(text[0]);
@@ -130,7 +130,7 @@ public class AddConjugPanel extends AddPhrasePanel
 		lbl4.setText(text[4]);
 		lbl5.setText(text[5]);
 	}
-	
+
 	public boolean checkInput()
 	{
 		if((txt0.getText() == null) || (txt0.getText().equals(""))) return false;
@@ -141,7 +141,7 @@ public class AddConjugPanel extends AddPhrasePanel
 		if((txt5.getText() == null) || (txt5.getText().equals(""))) return false;
 		return true;
 	}
-	
+
 	public void clear()
 	{
 		txt0.setText("");
@@ -151,7 +151,7 @@ public class AddConjugPanel extends AddPhrasePanel
 		txt4.setText("");
 		txt5.setText("");
 	}
-	
+
 	public Component[] getComponents()
 	{
 		return tabComponents;

@@ -16,7 +16,7 @@ public class ExercisePanel extends JPanel
 	private String borderTitel  = "Exercise Panel";
 	private TitledBorder border = new TitledBorder(null, borderTitel, TitledBorder.LEADING, TitledBorder.TOP, null, null);
 	protected PerformancePanel perfPanel;
-	
+
 	public ExercisePanel(Phrase phrase)
 	{
 		this.phrase = phrase;
@@ -25,45 +25,45 @@ public class ExercisePanel extends JPanel
 		setPreferredSize(new Dimension(450, 350));
 		perfPanel = new PerformancePanel();
 	}
-	
+
 	public Component[] getComponents()
 	{
 		return null;
 	}
-	
+
 	public void setToolTip(String text)
 	{
 		this.setToolTipText(text);
 	}
-	
+
 	public Phrase getPhrase()
 	{
 		return phrase;
 	}
-	
+
 	public PerformancePanel getPerfPanel()
 	{
 		return perfPanel;
 	}
-	
+
 	public void updatePerfData(boolean answerCorrect)
 	{
 		if (phrase.core.reverse)
 		{
 			if(answerCorrect)
-			{	
+			{
 				phrase.perf.revSuccess++;
 				phrase.perf.revLastSuccess = new java.sql.Timestamp(System.currentTimeMillis());
 			}
 			else
-			{	
+			{
 				phrase.perf.revSuccess--;
 				phrase.perf.revLastFail = new java.sql.Timestamp(System.currentTimeMillis());
 			}
 			phrase.core.success = phrase.perf.revSuccess;
-		} 
-		else 
-		{	
+		}
+		else
+		{
 			if (answerCorrect)
 			{
 				phrase.perf.success++;
@@ -78,7 +78,7 @@ public class ExercisePanel extends JPanel
 		}
 		phrase.perf.saveToDB();
 	}
-	
+
 	public boolean verify()
 	{
 		return false;

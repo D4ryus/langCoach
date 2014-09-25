@@ -69,15 +69,15 @@ public class AddLanguageFrame extends JFrame
 				RowSpec.decode("fill:default:grow"),
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				RowSpec.decode("fill:default:grow"),}));
-		
+
 		JLabel lblLanguageId = new JLabel("Language ID:");
 		lblLanguageId.setToolTipText("Language ID is a language identifier like EN or DE");
 		contentPane.add(lblLanguageId, "2, 2");
-		
+
 		JLabel lblName = new JLabel("Name:");
 		lblName.setToolTipText("Name descriptes the language, so English would be a good choice for EN");
 		contentPane.add(lblName, "4, 2");
-		
+
 		JPanel panel = new JPanel();
 		panel.setToolTipText("Personal Pronoun for the new Language, have to be filled! (example EN: i, you, he she it, we, you, they)");
 		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Personal Pronouns", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -104,13 +104,13 @@ public class AddLanguageFrame extends JFrame
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				RowSpec.decode("fill:default:grow"),
 				FormSpecs.RELATED_GAP_ROWSPEC,}));
-		
+
 		JLabel lblNewLabel_2 = new JLabel("First Person Singular:");
 		panel.add(lblNewLabel_2, "2, 2, fill, top");
-		
+
 		JLabel lblFirstPersonPlural = new JLabel("First Person Plural:");
 		panel.add(lblFirstPersonPlural, "4, 2, fill, top");
-		
+
 		txt2 = new JTextField();
 		panel.add(txt2, "2, 4, fill, top");
 		txt2.setColumns(10);
@@ -118,40 +118,39 @@ public class AddLanguageFrame extends JFrame
 		txt5 = new JTextField();
 		panel.add(txt5, "4, 4, fill, top");
 		txt5.setColumns(10);
-		
+
 		JLabel lblSecondPersonSingular = new JLabel("Second Person Singular:");
 		panel.add(lblSecondPersonSingular, "2, 6, fill, top");
-		
-				JLabel lblSecondPersonPlural = new JLabel("Second Person Plural:");
-				panel.add(lblSecondPersonPlural, "4, 6, fill, top");
-		
+
+		JLabel lblSecondPersonPlural = new JLabel("Second Person Plural:");
+		panel.add(lblSecondPersonPlural, "4, 6, fill, top");
+
 		txt3 = new JTextField();
 		panel.add(txt3, "2, 8, fill, top");
 		txt3.setColumns(10);
-				
+
 		txt6 = new JTextField();
 		panel.add(txt6, "4, 8, fill, top");
 		txt6.setColumns(10);
-				
+
 		JLabel lblNewLabel_3 = new JLabel("Third Person Singular:");
 		panel.add(lblNewLabel_3, "2, 10, fill, top");
-				
+
 		JLabel lblThirdPersonPlural = new JLabel("Third Person Plural:");
 		panel.add(lblThirdPersonPlural, "4, 10, fill, top");
-				
+
 		txt4 = new JTextField();
 		panel.add(txt4, "2, 12, fill, top");
 		txt4.setColumns(10);
-		
+
 		txt7 = new JTextField();
 		panel.add(txt7, "4, 12, fill, top");
 		txt7.setColumns(10);
-		
+
 		txt0 = new JTextField();
 		contentPane.add(txt0, "2, 4, fill, default");
 		txt0.setColumns(10);
 
-		
 		txt1 = new JTextField();
 		contentPane.add(txt1, "4, 4, fill, default");
 		txt1.setColumns(10);
@@ -159,7 +158,7 @@ public class AddLanguageFrame extends JFrame
 		JButton btnConfirm = new JButton("Confirm");
 		btnConfirm.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { clickedConfirm(); }});
 		contentPane.add(btnConfirm, "2, 8, 3, 1");
-		
+
 		tabOrder.add(txt0);
 		tabOrder.add(txt1);
 		tabOrder.add(txt2);
@@ -172,11 +171,11 @@ public class AddLanguageFrame extends JFrame
 
 		setFocusTraversalPolicy(new TabOrder(tabOrder));
 		tabOrder.getFirst().requestFocus();
-		
-		JRootPane rootPane = SwingUtilities.getRootPane(btnConfirm); 
+
+		JRootPane rootPane = SwingUtilities.getRootPane(btnConfirm);
 		rootPane.setDefaultButton(btnConfirm);
 	}
-	
+
 	private void clickedConfirm()
 	{
 		this.setEnabled(false);
@@ -194,25 +193,23 @@ public class AddLanguageFrame extends JFrame
 			tabOrder.getFirst().requestFocus();
 			return;
 		}
-		Language selected = Language.createNew(coach.getCon(), txt0.getText(), txt1.getText(), 
-			txt2.getText() + "#"
-		  + txt3.getText() + "#"
-		  + txt4.getText() + "#"
-		  + txt5.getText() + "#"
-		  + txt6.getText() + "#"
-		  + txt7.getText() + "#"
+		Language selected = Language.createNew(coach.getCon(), txt0.getText(), txt1.getText(),
+		txt2.getText() + "#"
+		+ txt3.getText() + "#"
+		+ txt4.getText() + "#"
+		+ txt5.getText() + "#"
+		+ txt6.getText() + "#"
+		+ txt7.getText() + "#"
 		);
-		
+
 		if (dictFrame != null)
 		{
 			if (lang == 1)
 				dictFrame.updateLang1(selected);
 			else if (lang == 2)
 				dictFrame.updateLang2(selected);
-				
 		}
-		
+
 		this.dispose();
 	}
-
 }

@@ -12,11 +12,11 @@ public class EmptyPanel extends ExercisePanel
 	public EmptyPanel(Phrase phrase)
 	{
 		super(phrase);
-		
+
 		JLabel lbl = new JLabel("no Phrase found :(");
 		lbl.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lbl);
-		
+
 		System.out.println("empty");
 	}
 }

@@ -8,12 +8,12 @@ import java.util.LinkedList;
 public class TabOrder extends FocusTraversalPolicy
 {
 	private LinkedList<Component> tabOrder = new LinkedList<Component>();
-	
+
 	public TabOrder(LinkedList<Component> tabOrder)
 	{
 		this.tabOrder = tabOrder;
 	}
-	
+
 	public Component getComponentAfter(Container arg0, Component arg1)
 	{
 		return tabOrder.get((tabOrder.indexOf(arg1) + 1) % tabOrder.size());
@@ -42,5 +42,4 @@ public class TabOrder extends FocusTraversalPolicy
 	{
 		return tabOrder.getLast();
 	}
-
 }

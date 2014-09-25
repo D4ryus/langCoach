@@ -45,7 +45,6 @@ public class MainFrame extends JFrame
 
 	public MainFrame(LangCoach coach)
 	{
-
 		this.coach = coach;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainPanel = new JPanel();

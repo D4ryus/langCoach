@@ -25,12 +25,12 @@ public class Dictionary extends DBObject
 				"Lang1, Languages",
 				"Lang2, Languages"
 			});
-		
+
 	public Dictionary(Connection con, String id)
 	{
 		super(con, id);
 	}
-	
+
 	public static Dictionary createNew(Connection con, String name, String desc, String lang1, String lang2)
 	{
 		Dictionary dict = null;
@@ -64,40 +64,40 @@ public class Dictionary extends DBObject
 	{
 		return name;
 	}
-	
+
 	public void fillMembers(ResultSet rs) throws SQLException
 	{
 		 super.fillMembers(rs);
-		 
+
 		 name = rs.getString("Name");
 		 desrc = rs.getString("Descr");
 		 lang1 = rs.getString("Lang1");
 		 lang2 = rs.getString("Lang2");
 	}
-	
+
 	public String getTableName()
 	{
 		return tableInfo.tableName;
 	}
-	
+
 	private Language language1 = null;
 	public Language getLanguage1()
 	{
 		if (language1 == null)
 			language1 = new Language(con, this.lang1);
 
-		return language1; 
+		return language1;
 	}
-	
+
 	private Language language2 = null;
 	public Language getLanguage2()
 	{
 		if (language2 == null)
 			language2 = new Language(con, this.lang2);
-		
+
 		return language2;
 	}
-	
+
 	public static Dictionary[] getDictionaries(Connection con)
 	{
 		String[] ids = DBObject.getIDs(con, tableInfo);
@@ -107,26 +107,26 @@ public class Dictionary extends DBObject
 			dicts[i] = new Dictionary(con, ids[i]);
 		return dicts;
 	}
-	
+
 	public static Dictionary getTop(Connection con)
 	{
 		int ID = 0;
 		try
 		{
 			PreparedStatement ps = con.prepareStatement("SELECT ID FROM " + tableInfo.tableName + " {LIMIT 1} ");
-			
+
 			ResultSet rs = ps.executeQuery();
 			rs.next();
-			
+
 			ID = rs.getInt(1);
-			
+
 			rs.close();
 		}
 		catch (SQLException sqle)
 		{
 			return null;
 		}
-		
+
 		return new Dictionary(con, String.valueOf(ID));
 	}
 }
