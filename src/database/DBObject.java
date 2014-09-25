@@ -12,37 +12,37 @@ public class DBObject
 {
 	protected Connection con;
 	private String id;
-	
+
 	public static String dbName = "DB";
 	public static String driver = "org.apache.derby.jdbc.EmbeddedDriver";
 	public static String connectionURL = "jdbc:derby:" + dbName + ";create=true";
-		
+
 	protected DBObject(Connection con, String id)
 	{
 		this.con = con;
 		this.id = id;
-		
+
 		loadFromDB();
 	}
-	
+
 	public static boolean createTable(Connection con, TableInfo tableInfo)
 	{
-		
+
 		String tableCreate = "CREATE TABLE " + tableInfo.tableName + " ( ";
-		
+
 		for(String i : tableInfo.columns)
 		{
 			String[] tmp = i.split(",");
-			tableCreate += " " + tmp[0] + " " + tmp [1] + " , ";	
+			tableCreate += " " + tmp[0] + " " + tmp [1] + " , ";
 		}
-		
+
 		for(String i : tableInfo.foreignKeys)
 		{
 			String[] tmp = i.split(",");
-			tableCreate += " FOREIGN KEY (" + tmp[0] + ") REFERENCES  " + tmp [1] + " , ";	
+			tableCreate += " FOREIGN KEY (" + tmp[0] + ") REFERENCES  " + tmp [1] + " , ";
 		}
 		tableCreate += " PRIMARY KEY (ID) )";
-		
+
 		try
 		{
 			Statement stmt = con.createStatement();
@@ -58,13 +58,13 @@ public class DBObject
 		}
 		return true;
 	}
-	
+
 	protected static class TableInfo
 	{
 		public String tableName;
 		public String[] columns;
 		public String[] foreignKeys;
-		
+
 		public TableInfo(String tableName, String[] columns, String[] foreignKeys)
 		{
 			this.tableName = tableName;
@@ -77,23 +77,23 @@ public class DBObject
 	{
 		 id = rs.getString("ID");
 	}
-	
+
 	public PreparedStatement getSelectStmt() throws SQLException
 	{
 		PreparedStatement ps = con.prepareStatement("SELECT * FROM " + getTableName() + " WHERE ID = ?");
-		
+
 		ps.setString(1, id);
-		
+
 		return ps;
 	}
-	
+
 	public void loadFromDB()
 	{
 		try
 		{
 			PreparedStatement ps = getSelectStmt();
 			ResultSet rs = ps.executeQuery();
-			
+
 			if (rs.next())
 				fillMembers(rs);
 
@@ -102,13 +102,13 @@ public class DBObject
 		catch (SQLException sqle)
 		{ }
 	}
-	
+
 	public PreparedStatement getUpdateStmt() throws SQLException
 	{
 		System.out.println("call on getUpdateString() in DBObject (not implemented!)");
 		return null;
 	}
-	
+
 	public int saveToDB()
 	{
 		int rows = 0;
@@ -124,15 +124,15 @@ public class DBObject
 		}
 		return rows;
 	}
-	
+
 	public static String[] getIDs(Connection con, TableInfo tableInfo)
 	{
 		ArrayList<String> data = new ArrayList<String>();
-			
+
 		try
 		{
 			PreparedStatement ps = con.prepareStatement("SELECT ID FROM " + tableInfo.tableName);
-			
+
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next())
@@ -145,7 +145,7 @@ public class DBObject
 			if (sqle.getSQLState().equals("42X05"))
 			{
 				System.out.println("Creating table " + tableInfo.tableName);
-	
+
 				createTable(con, tableInfo);
 			}
 			else
@@ -175,7 +175,7 @@ public class DBObject
 			return false;
 		}
 	}
-	
+
 	public static void dropTable(Connection con, TableInfo tableInfo)
 	{
 		System.out.println("Deleting " + tableInfo.tableName + " in given database...");
@@ -189,19 +189,19 @@ public class DBObject
 			System.out.println("could not drop table " + tableInfo.tableName + e);
 		}
 	}
-	
+
 	public static int entries(Connection con, TableInfo tableInfo)
 	{
 		int ret = 0;
-		
+
 		try
 		{
 			PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM " + tableInfo.tableName);
-			
+
 			ResultSet rs = ps.executeQuery();
 			rs.next();
 			ret = rs.getInt(1);
-			
+
 			rs.close();
 		}
 		catch (SQLException sqle)
@@ -220,10 +220,10 @@ public class DBObject
 				System.exit(0);
 			}
 		}
-		
+
 		return ret;
 	}
-	
+
 	public static Connection start()
 	{
 		Connection con = null;
@@ -239,7 +239,7 @@ public class DBObject
 		}
 		return con;
 	}
-	
+
 	public static void kill(Connection con)
 	{
 		try
@@ -275,17 +275,17 @@ public class DBObject
 			}
 		}
 	}
-	
+
 	public final String getID()
 	{
 		return id;
 	}
-	
+
 	public String toString()
 	{
 		return null;
 	}
-	
+
 	public String getTableName()
 	{
 		return null;

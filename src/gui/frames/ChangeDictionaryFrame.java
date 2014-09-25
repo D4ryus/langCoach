@@ -52,23 +52,23 @@ public class ChangeDictionaryFrame extends JFrame
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,}));
-		
+
 		comboBox = new JComboBox<Dictionary>(Dictionary.getDictionaries(coach.getCon()));
 		contentPane.add(comboBox, "2, 2, 5, 1, fill, default");
-		
+
 		JButton btnOk = new JButton("Ok");
 		btnOk.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { clickedOk(); }});
 		contentPane.add(btnOk, "2, 4");
-		
+
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { clickedCancel(); }});
 		contentPane.add(btnCancel, "4, 4");
-		
+
 		JButton btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { clickedAdd(); }});
 		contentPane.add(btnAdd, "6, 4");
-		
-		JRootPane rootPane = SwingUtilities.getRootPane(btnOk); 
+
+		JRootPane rootPane = SwingUtilities.getRootPane(btnOk);
 		rootPane.setDefaultButton(btnOk);
 	}
 
@@ -77,12 +77,12 @@ public class ChangeDictionaryFrame extends JFrame
 		coach.setDict((Dictionary) comboBox.getSelectedItem());
 		this.dispose();
 	}
-	
+
 	private void clickedCancel()
 	{
 		this.dispose();
 	}
-	
+
 	private void clickedAdd()
 	{
 		coach.addDictionary();

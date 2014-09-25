@@ -12,7 +12,7 @@ public class User extends DBObject
 	public String name;
 	public Timestamp lastLog;
 	public int logins;
-	public static final DBObject.TableInfo tableInfo = new DBObject.TableInfo( 
+	public static final DBObject.TableInfo tableInfo = new DBObject.TableInfo(
 		"Users",
 			new String[] {
 				"ID,       INT          GENERATED ALWAYS AS IDENTITY",
@@ -21,12 +21,12 @@ public class User extends DBObject
 				"Logins,   INT"
 			}, new String[] {
 			});
-	
+
 	public User(Connection con, String id)
 	{
 		super(con, id);
 	}
-		
+
 	public static User createNew(Connection con, String name)
 	{
 		User user = null;
@@ -52,28 +52,26 @@ public class User extends DBObject
 		return user;
 	}
 
-
-
 	public String toString()
 	{
 		return name;
 	}
-	
+
 	public void fillMembers(ResultSet rs) throws SQLException
 	{
 		 super.fillMembers(rs);
-		 
+
 		 name = rs.getString("Name");
 		 lastLog = rs.getTimestamp("LastLog");
 		 logins = rs.getInt("Logins");
 	}
-	
+
 	public PreparedStatement getUpdateStmt() throws SQLException
 	{
 		PreparedStatement ps = con.prepareStatement(
 			"UPDATE " + getTableName() + " SET " +
 				"Name = ? , "    +
-		        "LastLog = ? , " + 
+		        "LastLog = ? , " +
 				"Logins = ? "    +
 			    "WHERE ID = ?"
 			   );
@@ -83,12 +81,12 @@ public class User extends DBObject
 		ps.setString(4, getID());
 		return ps;
 	}
-	
+
 	public String getTableName()
 	{
 		return tableInfo.tableName;
 	}
-	
+
 	public static User getLatest(Connection con)
 	{
 		User user = null;
@@ -107,10 +105,10 @@ public class User extends DBObject
 			if (sqle.getSQLState().equals("42X05")) // table does not exist
 				DBObject.createTable(con, tableInfo);
 		}
-		
+
 		return user;
 	}
-	
+
 	public static User[] getUsers(Connection con)
 	{
 		String[] ids = DBObject.getIDs(con, tableInfo);
