@@ -58,7 +58,7 @@ public class QueryFrame extends JFrame
 
 		JButton btnQuery = new JButton("Evaluate");
 		btnQuery.setMnemonic('e');
-		btnQuery.addActionListener(new ActionListener(){ public void actionPerformed(ActionEvent e) { qtm.setQuery(queryField.getText().trim()); }});
+		btnQuery.addActionListener(new ActionListener(){ public void actionPerformed(ActionEvent e) { clicked_eval(); }});
 		getContentPane().add(btnQuery, "6, 2");
 
 		JScrollPane scrollPane = new JScrollPane(logField = new JTextArea());
@@ -73,6 +73,39 @@ public class QueryFrame extends JFrame
 		rootPane.setDefaultButton(btnQuery);
 
 		setVisible(true);
+	}
+	
+	private void clicked_eval()
+	{
+		String query = queryField.getText().trim();
+		switch (query)
+		{
+		case "lsp":
+			query = getTableQuery("PHRASES");
+			break;
+		case "lsperf":
+			query = getTableQuery("PERFORMANCES");
+			break;
+		case "lsd":
+			query = getTableQuery("DICTIONARIES");
+			break;
+		case "lsu":
+			query = getTableQuery("USERS");
+			break;
+		case "lsl":
+			query = getTableQuery("LANGUAGES");
+			break;
+		case "lsa":
+			query = "SELECT * FROM SYS.SYSTABLES";
+			break;
+		}
+		queryField.setText(query);
+		qtm.setQuery(query);
+	}
+	
+	private String getTableQuery(String table)
+	{
+		return "SELECT * FROM " + table + " ORDER BY ID DESC";
 	}
 }
 
