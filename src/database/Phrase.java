@@ -85,6 +85,7 @@ public class Phrase extends DBObject
 		public int success;
 		public boolean reverse;
 		public CorePhrase revPhrase;
+		public int calcValue;
 
 		public CorePhrase(int id, int success, int perfID, boolean reverse)
 		{
@@ -150,7 +151,8 @@ public class Phrase extends DBObject
 					"SELECT Phrases.ID, Success, RevSuccess, Performances.ID " +
 					"FROM Phrases " +
 					"LEFT OUTER JOIN Performances ON Phrases.ID = Phrase AND UserID = ? " +
-					"WHERE Phrases.Dic = ?");
+					"WHERE Phrases.Dic = ? " +
+					"ORDER BY SUCCESS DESC ");
 
 			ps.setString(1, user.getID());
 			ps.setString(2, dict.getID());
