@@ -152,7 +152,7 @@ public class Phrase extends DBObject
 					"FROM Phrases " +
 					"LEFT OUTER JOIN Performances ON Phrases.ID = Phrase AND UserID = ? " +
 					"WHERE Phrases.Dic = ? " +
-					"ORDER BY SUCCESS DESC ");
+					"ORDER BY Phrases.ID DESC ");
 
 			ps.setString(1, user.getID());
 			ps.setString(2, dict.getID());
