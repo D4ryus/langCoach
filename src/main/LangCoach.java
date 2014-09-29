@@ -211,12 +211,6 @@ public class LangCoach
 				break;
 			}
 		}
-		for (CorePhrase i : phrases)
-		{
-			System.out.println("ID:     " + i.id);
-			System.out.println("Calc:   " + i.calcValue);
-			System.out.println("perfID: " + i.perfID);
-		}
 		
 		ret.perf.max = max;
 		return ret;
