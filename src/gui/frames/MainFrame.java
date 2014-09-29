@@ -119,7 +119,7 @@ public class MainFrame extends JFrame
 
 		btnCheck.setEnabled(false);
 
-		Phrase phr = coach.getRandomPhraseOld();
+		Phrase phr = coach.getRandomPhrase();
 
 		LinkedList<Component> tabOrder = new LinkedList<Component>();
 

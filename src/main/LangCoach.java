@@ -41,6 +41,8 @@ public class LangCoach
 	{
 		if	(dict != null)
 			phrases = Phrase.getPhrases(con, dict, user);
+		max = 0;
+		sum = 0;
 	}
 
 	public void OpenQueryConsole()
@@ -119,9 +121,19 @@ public class LangCoach
 	public void setMainFrame(MainFrame frame)
 	{
 		mainFrame = frame;
+		
+		if ( (user.lastLog == null)
+		  || (System.currentTimeMillis() - user.lastLog.getTime()) > 600_000)
+		{ // if lastlog is older then 10 min or first login
+			user.logins++;
+		}
+		
 		mainFrame.setTitle("User: " + user.name
 				+ " - Logins: " + user.logins
 				+ " - LastLogin: " + TimeCalc.calcPrettyTime(user.lastLog));
+		
+		user.lastLog = new java.sql.Timestamp(System.currentTimeMillis());
+		user.saveToDB();
 	}
 
 	public void setDict(Dictionary newDict)
@@ -137,8 +149,8 @@ public class LangCoach
 
 	public void setUser(User newUser)
 	{
-		if (newUser == null || newUser.getID().equals(user.getID()))
-			return;
+		if (newUser == null || (user != null && newUser.getID().equals(user.getID())))
+				return;
 
 		if (    (newUser.lastLog == null)
 			 || (System.currentTimeMillis() - newUser.lastLog.getTime()) > 600_000)
@@ -160,7 +172,7 @@ public class LangCoach
 
 	private static int max = 0;
 	private static int sum = 0;
-	public Phrase getRandomPhraseNew()
+	public Phrase getRandomPhrase()
 	{
 		Phrase ret = null;
 
@@ -183,62 +195,64 @@ public class LangCoach
 					sum += -1 * phrases[i].success * max;
 				else
 					sum += 1;
+				phrases[i].calcValue = sum;
 			}
+		}
+		
+		recalculatePhrases();
+		int rand = new Random().nextInt(sum);
+		
+		for (int i = 0; i < phrases.length; i++)
+		{
+			if (phrases[i].calcValue > rand)
+			{
+				ret = phrases[i].getFullPhrase(con, user);
+				lastChoosen = i;
+				break;
+			}
+		}
+		for (CorePhrase i : phrases)
+		{
+			System.out.println("ID:     " + i.id);
+			System.out.println("Calc:   " + i.calcValue);
+			System.out.println("perfID: " + i.perfID);
 		}
 
 		return ret;
 	}
-
-	public Phrase getRandomPhraseOld()
+	
+	private static int lastChoosen = -1;
+	public void recalculatePhrases()
 	{
-		Phrase ret = null;
-
-		if (phrases == null)
-			updateCorePhrases();
-		if (phrases == null)
-			return ret;
-
-		int count = phrases.length;
-		if (count > 0)
+		int diff = 0;
+		
+		if (lastChoosen != -1)
 		{
-			int[] tmp = new int[count];
-			max = 1;
-
-			for (CorePhrase i : phrases)
-				if (max < (i.success < 0 ? i.success * (-1) : i.success))
-					max = (i.success < 0 ? i.success * (-1) : i.success);
-
-			for (int i = 0; i < count; i++)
+			if (lastChoosen == 0)
 			{
-				if (i != 0)
-					tmp[i] = tmp[i-1];
+				if (phrases[lastChoosen].success > 0)
+					diff = (int) ((1.0 / (double)phrases[lastChoosen].success) * (double)max) - phrases[lastChoosen].calcValue;
+				else if (phrases[lastChoosen].success < 0)
+					diff = (int) (-1 * phrases[lastChoosen].success * max) - phrases[lastChoosen].calcValue;
 				else
-					tmp[i] = 0;
-
-				if (phrases[i].success > 0)
-					tmp[i] += (1.0 / (double)phrases[i].success) * (double)max;
-				else if (phrases[i].success < 0)
-					tmp[i] += -1 * phrases[i].success * max;
-				else
-					tmp[i] += 1;
+					diff = 1 - phrases[lastChoosen].calcValue;
 			}
-
-			int rand = new Random().nextInt(tmp[count -1]);
-
-			for (int i = 0; i < count; i++)
+			else
 			{
-				if (tmp[i] > rand)
-				{
-					ret = phrases[i].getFullPhrase(con, user);
-					break;
-				}
+				if (phrases[lastChoosen].success > 0)
+					diff = (int) (phrases[lastChoosen-1].calcValue + ((1.0 / (double)phrases[lastChoosen].success) * (double)max)) - phrases[lastChoosen].calcValue;
+				else if (phrases[lastChoosen].success < 0)
+					diff = (int) (phrases[lastChoosen-1].calcValue + -1 * phrases[lastChoosen].success * max) - phrases[lastChoosen].calcValue;
+				else
+					diff = (int) (phrases[lastChoosen-1].calcValue + 1) - phrases[lastChoosen].calcValue;
 			}
-			ret.setDict(dict);
+			
+			sum += diff;
+			if (max < (phrases[lastChoosen].success < 0 ? phrases[lastChoosen].success * (-1) : phrases[lastChoosen].success))
+				max = (phrases[lastChoosen].success < 0 ? phrases[lastChoosen].success * (-1) : phrases[lastChoosen].success);
+			for (int i = lastChoosen; i < phrases.length; i++)
+				phrases[i].calcValue = phrases[i].calcValue + diff;
 		}
-
-		if (ret != null)
-			ret.perf.max = max;
-		return ret;
 	}
 
 	public Connection getCon()
