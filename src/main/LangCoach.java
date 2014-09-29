@@ -178,7 +178,7 @@ public class LangCoach
 
 		if (phrases == null)
 			updateCorePhrases();
-		if (phrases == null)
+		if (phrases == null || phrases.length == 0)
 			return ret;
 
 		if (max == 0 || sum == 0)
@@ -217,7 +217,8 @@ public class LangCoach
 			System.out.println("Calc:   " + i.calcValue);
 			System.out.println("perfID: " + i.perfID);
 		}
-
+		
+		ret.perf.max = max;
 		return ret;
 	}
 	
