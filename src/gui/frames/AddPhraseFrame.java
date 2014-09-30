@@ -33,7 +33,6 @@ import database.Phrase;
 
 public class AddPhraseFrame extends JFrame
 {
-	private enum Type {conjugation, simple, number};
 	private static final long serialVersionUID = 5512396493144935047L;
 	private JPanel contentPane;
 	private JComboBox<Dictionary> cmbDict;
