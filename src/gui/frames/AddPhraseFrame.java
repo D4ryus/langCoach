@@ -158,9 +158,9 @@ public class AddPhraseFrame extends JFrame
 	{
 		String phr1 = panelTop.getText();
 		String phr2 = panelBot.getText();
-
+		
 		if (phr1 != null && phr2 != null)
-		{
+		{		
 			panelTop.clear();
 			panelBot.clear();
 			Phrase.createNew(coach.getCon(), Integer.parseInt(frameDictionary.getID()), type, phr1, phr2);

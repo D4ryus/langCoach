@@ -3,6 +3,7 @@ package gui.frames;
 import gui.panels.exercise.ConjugPanel;
 import gui.panels.exercise.EmptyPanel;
 import gui.panels.exercise.ExercisePanel;
+import gui.panels.exercise.NumberPanel;
 import gui.panels.exercise.SimplePhrasePanel;
 
 import java.awt.Component;
@@ -135,8 +136,8 @@ public class MainFrame extends JFrame
 				exPanel = new ConjugPanel(phr);
 			else if (phr.type == Phrase.Type.simple)
 				exPanel = new SimplePhrasePanel(phr);
-			//else
-				//exPanel = numberpanel;
+			else
+				exPanel = new NumberPanel(phr);
 
 			exPanel.getPerfPanel().updateInfo(phr);
 

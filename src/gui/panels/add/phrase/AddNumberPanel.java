@@ -9,9 +9,9 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import database.Language;
+
 import javax.swing.JCheckBox;
 
-//public class AddNumberPanel extends JPanel
 public class AddNumberPanel extends AddPhrasePanel
 {
 	private static final long serialVersionUID = -6205930465861648297L;
@@ -64,10 +64,14 @@ public class AddNumberPanel extends AddPhrasePanel
 	private JTextField txtCon_20_90;
 	private JTextField txtCon_100_900;
 	private JTextField txtCon_1000_9000;
+	private JCheckBox chckbxSwaped_20_90;
+	private JCheckBox chckbxSwaped_100_900;
+	private JCheckBox chckbxSwaped_1000_9000;
+	
+	private JTextField[] components;
 
 	public AddNumberPanel(Language lang)
-//		public AddNumberPanel()
-		{
+	{
 		super(lang);
 		setLayout(new GridLayout(0, 5, 0, 0));
 		
@@ -249,7 +253,7 @@ public class AddNumberPanel extends AddPhrasePanel
 		add(numberPanel_20_90);
 		numberPanel_20_90.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		JCheckBox chckbxSwaped_20_90 = new JCheckBox("swaped");
+		chckbxSwaped_20_90 = new JCheckBox("swaped");
 		numberPanel_20_90.add(chckbxSwaped_20_90);
 		
 		JLabel lblBlank1 = new JLabel("");
@@ -337,7 +341,7 @@ public class AddNumberPanel extends AddPhrasePanel
 		add(numberPanel_100_900);
 		numberPanel_100_900.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		JCheckBox chckbxSwaped_100_900 = new JCheckBox("swaped");
+		chckbxSwaped_100_900 = new JCheckBox("swaped");
 		numberPanel_100_900.add(chckbxSwaped_100_900);
 		
 		JLabel lblBlank5 = new JLabel("");
@@ -428,7 +432,7 @@ public class AddNumberPanel extends AddPhrasePanel
 		add(numberPanel_1000_9000);
 		numberPanel_1000_9000.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		JCheckBox chckbxSwaped_1000_9000 = new JCheckBox("swaped");
+		chckbxSwaped_1000_9000 = new JCheckBox("swaped");
 		numberPanel_1000_9000.add(chckbxSwaped_1000_9000);
 		
 		JLabel lblBlank7 = new JLabel("");
@@ -513,70 +517,54 @@ public class AddNumberPanel extends AddPhrasePanel
 		txtCon_1000_9000 = new JTextField();
 		numberPanel_1000_9000.add(txtCon_1000_9000);
 		txtCon_1000_9000.setColumns(10);
-	}
-
-	public String getText()
-	{
-		return "test";
+		
+		components = new JTextField[]{
+			  txt0    , txt1    , txt2    , txt3    , txt4    , txt5    , txt6    , txt7    , txt8         , txt9,
+			  txt10   , txt11   , txt12   , txt13   , txt14   , txt15   , txt16   , txt17   , txt18        , txt19,
+			  txt20   , txt30   , txt40   , txt50   , txt60   , txt70   , txt80   , txt90   , txtCon_20_90 ,
+			  txt100  , txt200  , txt300  , txt400  , txt500  , txt600  , txt700  , txt800  , txt900       , txtCon_100_900,
+			  txt1000 , txt2000 , txt3000 , txt4000 , txt5000 , txt6000 , txt7000 , txt8000 , txt9000      , txtCon_1000_9000 };
 	}
 
 	public void clear()
 	{
+		for (JTextField i : components)
+			i.setText("");
+	}
+
+	public String getText()
+	{
+		String ret = "";
+		if (chckbxSwaped_20_90.isSelected())
+			ret += "+";
+		else
+			ret += "-";
+		ret += "#";
 		
+		if (chckbxSwaped_100_900.isSelected())
+			ret += "+";
+		else
+			ret += "-";
+		ret += "#";
+		
+		if (chckbxSwaped_1000_9000.isSelected())
+			ret += "+";
+		else
+			ret += "-";
+		
+		for (JTextField i : components)
+		{
+			if (i.getText().equals(""))
+				ret += "#-";
+			else
+				ret += "#" + i.getText();
+		}
+		
+		return ret;
 	}
 
 	public Component[] getComponents()
 	{
-		Component[] comp = new Component[49];
-		comp[0]  = txt0;
-		comp[1]  = txt1;
-		comp[2]  = txt2;
-		comp[3]  = txt3;
-		comp[4]  = txt4;
-		comp[5]  = txt5;
-		comp[6]  = txt6;
-		comp[7]  = txt7;
-		comp[8]  = txt8;
-		comp[9]  = txt9;
-		comp[10] = txt10;
-		comp[11] = txt11;
-		comp[12] = txt12;
-		comp[13] = txt13;
-		comp[14] = txt14;
-		comp[15] = txt15;
-		comp[16] = txt16;
-		comp[17] = txt17;
-		comp[18] = txt18;
-		comp[19] = txt19;
-		comp[20] = txt20;
-		comp[21] = txt30;
-		comp[22] = txt40;
-		comp[23] = txt50;
-		comp[24] = txt60;
-		comp[25] = txt70;
-		comp[26] = txt80;
-		comp[27] = txt90;
-		comp[28] = txtCon_20_90;
-		comp[29] = txt100;
-		comp[30] = txt200;
-		comp[31] = txt300;
-		comp[32] = txt400;
-		comp[33] = txt500;
-		comp[34] = txt600;
-		comp[35] = txt700;
-		comp[36] = txt800;
-		comp[37] = txt900;
-		comp[38] = txtCon_100_900;
-		comp[39] = txt1000;
-		comp[40] = txt2000;
-		comp[41] = txt3000;
-		comp[42] = txt4000;
-		comp[43] = txt5000;
-		comp[44] = txt6000;
-		comp[45] = txt7000;
-		comp[46] = txt8000;
-		comp[47] = txt9000;
-		comp[48] = txtCon_1000_9000;
-		return comp;
+		return components;
 	}
 }

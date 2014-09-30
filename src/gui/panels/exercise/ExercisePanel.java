@@ -31,11 +31,6 @@ public class ExercisePanel extends JPanel
 		return null;
 	}
 
-	public void setToolTip(String text)
-	{
-		this.setToolTipText(text);
-	}
-
 	public Phrase getPhrase()
 	{
 		return phrase;

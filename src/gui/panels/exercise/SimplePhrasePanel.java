@@ -7,8 +7,8 @@ import database.Phrase;
 public class SimplePhrasePanel extends ExercisePanel
 {
 	private static final long serialVersionUID = -2598447311795280099L;
-	private SingleInputPanel answerPanel;
-	private SingleOutputPanel questionPanel;
+	protected SingleInputPanel answerPanel;
+	protected SingleOutputPanel questionPanel;
 
 	public SimplePhrasePanel(Phrase phrase)
 	{
@@ -24,14 +24,16 @@ public class SimplePhrasePanel extends ExercisePanel
 		add(answerPanel);
 		add(perfPanel);
 
+		setText();
+	}
 
-
+	public void setText()
+	{
 		if(getPhrase().core.reverse)
 			questionPanel.setText(getPhrase().phrase2);
 		else
 			questionPanel.setText(getPhrase().phrase1);
 	}
-
 
 	public Component[] getComponents()
 	{
