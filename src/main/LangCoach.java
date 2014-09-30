@@ -20,6 +20,8 @@ import database.User;
 
 public class LangCoach
 {
+	public static Random RANDOM = new Random(System.currentTimeMillis());
+	
 	private static int successMax = 1;
 	private static int successCalcSum = 1;
 	private static int lastChoosen = -1;
@@ -204,7 +206,7 @@ public class LangCoach
 		}
 		
 		recalculatePhrases();
-		int rand = new Random().nextInt(successCalcSum);
+		int rand = RANDOM.nextInt(successCalcSum);
 		
 		for (int i = 0; i < phrases.length; i++)
 		{
