@@ -10,7 +10,7 @@ import java.util.LinkedList;
 public class Phrase extends DBObject
 {
 	public int dic;
-	public boolean conjug;
+	public Type type;
 	public String phrase1;
 	public String phrase2;
 	public User user;
@@ -21,7 +21,7 @@ public class Phrase extends DBObject
 				new String[] {
 					"ID,      INT          GENERATED ALWAYS AS IDENTITY, ",
 					"Dic,     INT          NOT NULL, ",
-					"Conjug,  BOOLEAN      NOT NULL, ",
+					"Type,    INT          NOT NULL, ",
 					"Phrase1, VARCHAR(512) NOT NULL, ",
 					"Phrase2, VARCHAR(512) NOT NULL, "
 				}, new String[] {
@@ -47,18 +47,52 @@ public class Phrase extends DBObject
 	{
 		super(con, id);
 	}
+	
+	public static enum Type {
+		simple,
+		conjugation,
+		number;
 
-	public static Phrase createNew(Connection con, int dic, boolean conj, String phrase1, String phrase2)
+	    public static Type fromInt(int x)
+	    {
+	        switch ( x % 3 )
+	        {
+		        case 0:
+		            return simple;
+		        case 1:
+		            return conjugation;
+		        case 2:
+		        	return number;
+	        }
+	        return null;
+	    }
+	    
+	    public static int toInt(Type type)
+	    {
+	        switch ( type )
+	        {
+		        case simple:
+		            return 0;
+		        case conjugation:
+		            return 1;
+		        case number:
+		        	return 2;
+	        }
+	        return -1;
+	    }
+	}
+
+	public static Phrase createNew(Connection con, int dic, Type type, String phrase1, String phrase2)
 	{
 		Phrase phrase = null;
 		try
 		{
 			PreparedStatement ps = con.prepareStatement(
 					"INSERT INTO " + tableInfo.tableName
-					+ " (Dic, Conjug, Phrase1, Phrase2) VALUES (?, ?, ?, ?)",
+					+ " (Dic, Type, Phrase1, Phrase2) VALUES (?, ?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
 			ps.setInt(1, dic);
-			ps.setBoolean(2, conj);
+			ps.setInt(2, Type.toInt(type));
 			ps.setString(3, phrase1);
 			ps.setString(4, phrase2);
 			ps.executeUpdate();
@@ -72,7 +106,7 @@ public class Phrase extends DBObject
 			if (sqle.getSQLState().equals("42X05")) // table does not exist
 			{
 				DBObject.createTable(con, tableInfo);
-				return Phrase.createNew(con, dic, conj, phrase1, phrase2);
+				return Phrase.createNew(con, dic, type, phrase1, phrase2);
 			}
 		}
 		return phrase;
@@ -106,7 +140,7 @@ public class Phrase extends DBObject
 		 super.fillMembers(rs);
 
 		 dic = rs.getInt("Dic");
-		 conjug = rs.getBoolean("Conjug");
+		 type = Type.fromInt(rs.getInt("Type"));
 		 phrase1 = rs.getString("Phrase1");
 		 phrase2 = rs.getString("Phrase2");
 	}
@@ -152,7 +186,7 @@ public class Phrase extends DBObject
 					"FROM Phrases " +
 					"LEFT OUTER JOIN Performances ON Phrases.ID = Phrase AND UserID = ? " +
 					"WHERE Phrases.Dic = ? " +
-					"ORDER BY Phrases.ID DESC ");
+					"ORDER BY Performances.Success ASC ");
 
 			ps.setString(1, user.getID());
 			ps.setString(2, dict.getID());
@@ -173,17 +207,19 @@ public class Phrase extends DBObject
 
 			rs.close();
 		}
-		catch(SQLException sqle)
+		catch (SQLException sqle)
 		{
 			if (sqle.getSQLState().equals("42X05")) // table does not exist
 			{
-				if(sqle.getMessage().contains(Performance.tableInfo.tableName.toUpperCase()))
+				if (sqle.getMessage().contains(Performance.tableInfo.tableName.toUpperCase()))
 				{
 					DBObject.createTable(con, Performance.tableInfo);
+					return getPhrases(con, dict, user);
 				}
 				else if (sqle.getMessage().contains(Phrase.tableInfo.tableName.toUpperCase()))
 				{
 					DBObject.createTable(con, Phrase.tableInfo);
+					return getPhrases(con, dict, user);
 				}
 				else
 				{
