@@ -131,10 +131,12 @@ public class MainFrame extends JFrame
 		}
 		else
 		{
-			if (phr.conjug)
+			if (phr.type == Phrase.Type.conjugation)
 				exPanel = new ConjugPanel(phr);
-			else
+			else if (phr.type == Phrase.Type.simple)
 				exPanel = new SimplePhrasePanel(phr);
+			//else
+				//exPanel = numberpanel;
 
 			exPanel.getPerfPanel().updateInfo(phr);
 

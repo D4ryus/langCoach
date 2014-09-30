@@ -42,7 +42,7 @@ public class AddPhraseFrame extends JFrame
 	private JButton btnConfirm;
 	private AddPhrasePanel panelTop;
 	private AddPhrasePanel panelBot;
-	private Type type = Type.conjugation;
+	private Phrase.Type type = Phrase.Type.simple;
 
 	private Dictionary frameDictionary;
 	private LangCoach coach;
@@ -104,11 +104,11 @@ public class AddPhraseFrame extends JFrame
 	private void clickedChangeType()
 	{
 		if (cmbType.getSelectedItem().equals("simple"))
-			type = Type.simple;
+			type = Phrase.Type.simple;
 		else if(cmbType.getSelectedItem().equals("conjugation"))
-			type = Type.conjugation;
+			type = Phrase.Type.conjugation;
 		else if (cmbType.getSelectedItem().equals("number"))
-			type = Type.number;
+			type = Phrase.Type.number;
 
 		updateLayout();
 	}
@@ -131,12 +131,15 @@ public class AddPhraseFrame extends JFrame
 		case conjugation:
 			panelTop = new AddConjugPanel(frameDictionary.getLanguage1());
 			panelBot = new AddConjugPanel(frameDictionary.getLanguage2());
+			break;
 		case simple:
 			panelTop = new AddSimplePanel(frameDictionary.getLanguage1());
 			panelBot = new AddSimplePanel(frameDictionary.getLanguage2());
+			break;
 		case number:
 			panelTop = new AddNumberPanel(frameDictionary.getLanguage1());
 			panelBot = new AddNumberPanel(frameDictionary.getLanguage2());
+			break;
 		}
 		mainPanel.add(panelTop);
 		mainPanel.add(panelBot);
@@ -161,9 +164,10 @@ public class AddPhraseFrame extends JFrame
 		{
 			panelTop.clear();
 			panelBot.clear();
-			Phrase.createNew(coach.getCon(), Integer.parseInt(frameDictionary.getID()), false, phr1, phr2);
+			Phrase.createNew(coach.getCon(), Integer.parseInt(frameDictionary.getID()), type, phr1, phr2);
 			if (tabOrder != null)
 				tabOrder.getFirst().requestFocus();
+			coach.updateCorePhrases();
 			System.out.println("Confirmed!");
 		}
 	}
