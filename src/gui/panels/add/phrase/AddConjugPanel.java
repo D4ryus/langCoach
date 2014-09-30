@@ -30,7 +30,8 @@ public class AddConjugPanel extends AddPhrasePanel
 	private JTextField txt4;
 	private JTextField txt5;
 
-	private Component[] tabComponents;
+	private JTextField[] components;
+	private JLabel[]	 labels;
 
 	public AddConjugPanel(Language lang)
 	{
@@ -96,14 +97,8 @@ public class AddConjugPanel extends AddPhrasePanel
 		add(txt5, "8, 6, fill, default");
 		txt5.setColumns(10);
 
-		tabComponents = new Component[6];
-
-		tabComponents[0] = txt0;
-		tabComponents[1] = txt1;
-		tabComponents[2] = txt2;
-		tabComponents[3] = txt3;
-		tabComponents[4] = txt4;
-		tabComponents[5] = txt5;
+		components = new JTextField[]{ txt0, txt1, txt2, txt3, txt4, txt5 };
+		labels     = new JLabel[]	 { lbl0, lbl1, lbl2, lbl3, lbl4, lbl5 };
 
 		setConjug(lang.persPron.split("#"));
 	}
@@ -111,49 +106,37 @@ public class AddConjugPanel extends AddPhrasePanel
 	public String getText()
 	{
 		if(checkInput())
-			return txt0.getText() + "#"
-				 + txt1.getText() + "#"
-				 + txt2.getText() + "#"
-				 + txt3.getText() + "#"
-				 + txt4.getText() + "#"
-				 + txt5.getText();
+		{
+			String ret = "";
+			for (JTextField i : components)
+				ret += i.getText() + "#";
+			return ret;
+		}
 		else
 			return null;
 	}
 
 	public void setConjug(String[] text)
 	{
-		lbl0.setText(text[0]);
-		lbl1.setText(text[1]);
-		lbl2.setText(text[2]);
-		lbl3.setText(text[3]);
-		lbl4.setText(text[4]);
-		lbl5.setText(text[5]);
+		for (int i = 0; i < labels.length; i++)
+			labels[i].setText(text[i]);
 	}
 
 	public boolean checkInput()
 	{
-		if((txt0.getText() == null) || (txt0.getText().equals(""))) return false;
-		if((txt1.getText() == null) || (txt1.getText().equals(""))) return false;
-		if((txt2.getText() == null) || (txt2.getText().equals(""))) return false;
-		if((txt3.getText() == null) || (txt3.getText().equals(""))) return false;
-		if((txt4.getText() == null) || (txt4.getText().equals(""))) return false;
-		if((txt5.getText() == null) || (txt5.getText().equals(""))) return false;
+		for (JTextField i : components)
+			if((i.getText() == null) || (i.getText().equals(""))) return false;
 		return true;
 	}
 
 	public void clear()
 	{
-		txt0.setText("");
-		txt1.setText("");
-		txt2.setText("");
-		txt3.setText("");
-		txt4.setText("");
-		txt5.setText("");
+		for (JTextField i : components)
+			i.setText("");
 	}
 
 	public Component[] getComponents()
 	{
-		return tabComponents;
+		return components;
 	}
 }
