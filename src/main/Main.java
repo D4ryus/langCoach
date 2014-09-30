@@ -8,7 +8,6 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import database.DBObject;
-import database.Language;
 
 public class Main
 {
@@ -18,9 +17,6 @@ public class Main
 
 		LangCoach brain = new LangCoach(DBObject.start());
 		brain.setMainFrame(new MainFrame(brain));
-
-		System.out.println("Languages: " + DBObject.entries(brain.getCon(), Language.tableInfo));
-		System.out.println("done!");
 	}
 
 	public static void setLook()
