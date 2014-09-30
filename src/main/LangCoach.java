@@ -20,6 +20,10 @@ import database.User;
 
 public class LangCoach
 {
+	private static int successMax = 1;
+	private static int successCalcSum = 1;
+	private static int lastChoosen = -1;
+	
 	private Connection con;
 	private User user;
 	private Dictionary dict;
@@ -41,8 +45,10 @@ public class LangCoach
 	{
 		if	(dict != null)
 			phrases = Phrase.getPhrases(con, dict, user);
-		max = 0;
-		sum = 0;
+			
+		successMax = 1;
+		successCalcSum = 1;
+		lastChoosen = -1;
 	}
 
 	public void OpenQueryConsole()
@@ -170,37 +176,35 @@ public class LangCoach
 		mainFrame.nextPhrase();
 	}
 
-	private static int max = 0;
-	private static int sum = 0;
 	public Phrase getRandomPhrase()
 	{
 		Phrase ret = null;
 
-		if (phrases == null)
+		if (phrases == null || phrases.length == 0)
 			updateCorePhrases();
 		if (phrases == null || phrases.length == 0)
 			return ret;
 
-		if (max == 0 || sum == 0)
+		if (successMax == 1 || successCalcSum == 1)
 		{
 			for (CorePhrase i : phrases)
-				if (max < (i.success < 0 ? i.success * (-1) : i.success))
-					max = (i.success < 0 ? i.success * (-1) : i.success);
-
+				if (successMax < (i.success < 0 ? i.success * (-1) : i.success))
+					successMax = (i.success < 0 ? i.success * (-1) : i.success);
+			
 			for (int i = 0; i < phrases.length; i++)
 			{
 				if (phrases[i].success > 0)
-					sum += (1.0 / (double)phrases[i].success) * (double)max;
+					successCalcSum += (int) ((double)successMax / (double)phrases[i].success);
 				else if (phrases[i].success < 0)
-					sum += -1 * phrases[i].success * max;
+					successCalcSum += -1 * phrases[i].success * successMax;
 				else
-					sum += 1;
-				phrases[i].calcValue = sum;
+					successCalcSum += 1 * successMax;
+				phrases[i].calcValue = successCalcSum;
 			}
 		}
 		
 		recalculatePhrases();
-		int rand = new Random().nextInt(sum);
+		int rand = new Random().nextInt(successCalcSum);
 		
 		for (int i = 0; i < phrases.length; i++)
 		{
@@ -212,39 +216,42 @@ public class LangCoach
 			}
 		}
 		
-		ret.perf.max = max;
+		ret.perf.max = successMax;
 		return ret;
 	}
 	
-	private static int lastChoosen = -1;
 	public void recalculatePhrases()
 	{
 		int diff = 0;
+		
+		for (CorePhrase i : phrases)
+			if (successMax < (i.success < 0 ? i.success * (-1) : i.success))
+				successMax = (i.success < 0 ? i.success * (-1) : i.success);
 		
 		if (lastChoosen != -1)
 		{
 			if (lastChoosen == 0)
 			{
 				if (phrases[lastChoosen].success > 0)
-					diff = (int) ((1.0 / (double)phrases[lastChoosen].success) * (double)max) - phrases[lastChoosen].calcValue;
+					diff = (int) ((1.0 / (double)phrases[lastChoosen].success) * (double)successMax) - phrases[lastChoosen].calcValue;
 				else if (phrases[lastChoosen].success < 0)
-					diff = (int) (-1 * phrases[lastChoosen].success * max) - phrases[lastChoosen].calcValue;
+					diff = (int) (-1 * phrases[lastChoosen].success * successMax) - phrases[lastChoosen].calcValue;
 				else
 					diff = 1 - phrases[lastChoosen].calcValue;
 			}
 			else
 			{
 				if (phrases[lastChoosen].success > 0)
-					diff = (int) (phrases[lastChoosen-1].calcValue + ((1.0 / (double)phrases[lastChoosen].success) * (double)max)) - phrases[lastChoosen].calcValue;
+					diff = (int) (phrases[lastChoosen-1].calcValue + ((1.0 / (double)phrases[lastChoosen].success) * (double)successMax)) - phrases[lastChoosen].calcValue;
 				else if (phrases[lastChoosen].success < 0)
-					diff = (int) (phrases[lastChoosen-1].calcValue + -1 * phrases[lastChoosen].success * max) - phrases[lastChoosen].calcValue;
+					diff = (int) (phrases[lastChoosen-1].calcValue + -1 * phrases[lastChoosen].success * successMax) - phrases[lastChoosen].calcValue;
 				else
 					diff = (int) (phrases[lastChoosen-1].calcValue + 1) - phrases[lastChoosen].calcValue;
 			}
 			
-			sum += diff;
-			if (max < (phrases[lastChoosen].success < 0 ? phrases[lastChoosen].success * (-1) : phrases[lastChoosen].success))
-				max = (phrases[lastChoosen].success < 0 ? phrases[lastChoosen].success * (-1) : phrases[lastChoosen].success);
+			successCalcSum += diff;
+			if (successMax < (phrases[lastChoosen].success < 0 ? phrases[lastChoosen].success * (-1) : phrases[lastChoosen].success))
+				successMax = (phrases[lastChoosen].success < 0 ? phrases[lastChoosen].success * (-1) : phrases[lastChoosen].success);
 			for (int i = lastChoosen; i < phrases.length; i++)
 				phrases[i].calcValue = phrases[i].calcValue + diff;
 		}
