@@ -27,8 +27,8 @@ public class Main
 	public static void setLook()
 	{
 	try {
-		for( LookAndFeelInfo info : UIManager.getInstalledLookAndFeels())
-			System.out.println("look and feels: " + info.getClassName());
+//		for( LookAndFeelInfo info : UIManager.getInstalledLookAndFeels())
+//			System.out.println("look and feels: " + info.getClassName());
 
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
