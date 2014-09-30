@@ -28,6 +28,7 @@ public class DBObject
 	public static boolean createTable(Connection con, TableInfo tableInfo)
 	{
 
+		System.out.println("Creating table " + tableInfo.tableName);
 		String tableCreate = "CREATE TABLE " + tableInfo.tableName + " ( ";
 
 		for(String i : tableInfo.columns)
@@ -144,8 +145,6 @@ public class DBObject
 		{
 			if (sqle.getSQLState().equals("42X05"))
 			{
-				System.out.println("Creating table " + tableInfo.tableName);
-
 				createTable(con, tableInfo);
 			}
 			else
@@ -208,7 +207,6 @@ public class DBObject
 		{
 			if (sqle.getSQLState().equals("42X05"))
 			{
-				System.out.println("Creating table " + tableInfo.tableName);
 				createTable(con, tableInfo);
 				ret = 0;
 			}
