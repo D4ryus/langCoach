@@ -74,14 +74,14 @@ public class AddDictionaryFrame extends JFrame
 		contentPane.add(lblLang1, "2, 2");
 
 		JButton btnAddLang1 = new JButton("Add");
-		btnAddLang1.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent arg0) { clickedAddLang1(); }});
+		btnAddLang1.addActionListener(new ActionListener() { @Override public void actionPerformed(ActionEvent arg0) { clickedAddLang1(); }});
 		contentPane.add(btnAddLang1, "4, 2");
 
 		JLabel lblLang2 = new JLabel("Language 2:");
 		contentPane.add(lblLang2, "6, 2");
 
 		JButton btnAddLang2 = new JButton("Add");
-		btnAddLang2.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent arg0) { clickedAddLang2(); }});
+		btnAddLang2.addActionListener(new ActionListener() { @Override public void actionPerformed(ActionEvent arg0) { clickedAddLang2(); }});
 		contentPane.add(btnAddLang2, "8, 2");
 
 		JLabel lblName = new JLabel("Name:");
@@ -114,7 +114,7 @@ public class AddDictionaryFrame extends JFrame
 		txtDescription.setColumns(10);
 
 		JButton btnConfirm = new JButton("Confirm");
-		btnConfirm.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { clickedConfirm(); } });
+		btnConfirm.addActionListener(new ActionListener() { @Override public void actionPerformed(ActionEvent e) { clickedConfirm(); } });
 		contentPane.add(btnConfirm, "2, 15, 7, 1");
 
 		JRootPane rootPane = SwingUtilities.getRootPane(btnConfirm);

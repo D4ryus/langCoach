@@ -135,6 +135,7 @@ public class Phrase extends DBObject
 		}
 	}
 
+	@Override
 	public void fillMembers(ResultSet rs) throws SQLException
 	{
 		 super.fillMembers(rs);
@@ -145,6 +146,7 @@ public class Phrase extends DBObject
 		 phrase2 = rs.getString("Phrase2");
 	}
 
+	@Override
 	public int saveToDB()
 	{
 		int rows = super.saveToDB();
@@ -171,6 +173,7 @@ public class Phrase extends DBObject
 		return dict;
 	}
 
+	@Override
 	public String getTableName()
 	{
 		return tableInfo.tableName;

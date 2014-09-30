@@ -60,11 +60,14 @@ public class Dictionary extends DBObject
 		}
 		return dict;
 	}
+	
+	@Override
 	public String toString()
 	{
 		return name;
 	}
 
+	@Override
 	public void fillMembers(ResultSet rs) throws SQLException
 	{
 		 super.fillMembers(rs);
@@ -75,6 +78,7 @@ public class Dictionary extends DBObject
 		 lang2 = rs.getString("Lang2");
 	}
 
+	@Override
 	public String getTableName()
 	{
 		return tableInfo.tableName;

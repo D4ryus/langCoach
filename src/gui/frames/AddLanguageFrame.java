@@ -156,7 +156,7 @@ public class AddLanguageFrame extends JFrame
 		txt1.setColumns(10);
 
 		JButton btnConfirm = new JButton("Confirm");
-		btnConfirm.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { clickedConfirm(); }});
+		btnConfirm.addActionListener(new ActionListener() { @Override public void actionPerformed(ActionEvent e) { clickedConfirm(); }});
 		contentPane.add(btnConfirm, "2, 8, 3, 1");
 
 		tabOrder.add(txt0);
@@ -194,13 +194,9 @@ public class AddLanguageFrame extends JFrame
 			return;
 		}
 		Language selected = Language.createNew(coach.getCon(), txt0.getText(), txt1.getText(),
-		txt2.getText() + "#"
-		+ txt3.getText() + "#"
-		+ txt4.getText() + "#"
-		+ txt5.getText() + "#"
-		+ txt6.getText() + "#"
-		+ txt7.getText() + "#"
-		);
+									txt2.getText() + "#" + txt3.getText() + "#"
+								  + txt4.getText() + "#" + txt5.getText() + "#"
+								  + txt6.getText() + "#" + txt7.getText() + "#" );
 
 		if (dictFrame != null)
 		{

@@ -35,11 +35,13 @@ public class ConjugPanel extends ExercisePanel
 		add(perfPanel);
 	}
 
+	@Override
 	public Component[] getComponents()
 	{
 		return answerPanel.getComponents();
 	}
 
+	@Override
 	public boolean verify()
 	{
 		boolean answerCorrect = true;

@@ -526,12 +526,14 @@ public class AddNumberPanel extends AddPhrasePanel
 			  txt1000 , txt2000 , txt3000 , txt4000 , txt5000 , txt6000 , txt7000 , txt8000 , txt9000      , txtCon_1000_9000 };
 	}
 
+	@Override
 	public void clear()
 	{
 		for (JTextField i : components)
 			i.setText("");
 	}
 
+	@Override
 	public String getText()
 	{
 		String ret = "";
@@ -563,6 +565,7 @@ public class AddNumberPanel extends AddPhrasePanel
 		return ret;
 	}
 
+	@Override
 	public Component[] getComponents()
 	{
 		return components;

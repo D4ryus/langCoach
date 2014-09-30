@@ -21,7 +21,7 @@ public class SingleInputPanel extends JPanel
 	{
 		txt = new JTextField();
 		txt.setHorizontalAlignment(SwingConstants.CENTER);
-		txt.addFocusListener(new FocusAdapter() { public void focusGained(FocusEvent arg0) { txt.selectAll(); }});
+		txt.addFocusListener(new FocusAdapter() { @Override public void focusGained(FocusEvent arg0) { txt.selectAll(); }});
 		setLayout(new GridLayout(0, 1, 0, 0));
 		add(txt);
 
@@ -31,6 +31,7 @@ public class SingleInputPanel extends JPanel
 		add(lblSolution);
 	}
 
+	@Override
 	public Component[] getComponents()
 	{
 		Component[] comp = new Component[1];

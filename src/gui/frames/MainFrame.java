@@ -55,7 +55,7 @@ public class MainFrame extends JFrame
 		mainPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setFocusCycleRoot(true);
 		btnChangeUser = new JButton("Change User " + coach.getUser());
-		btnChangeUser.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent arg0) { clickedChangeUser(); }});
+		btnChangeUser.addActionListener(new ActionListener() { @Override public void actionPerformed(ActionEvent arg0) { clickedChangeUser(); }});
 		setLayout(new FormLayout(new ColumnSpec[] {
 				FormSpecs.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("default:grow(3)"),
@@ -80,7 +80,7 @@ public class MainFrame extends JFrame
 		mainPanel.add(btnChangeUser, "6, 2, 3, 1, fill, fill");
 
 		btnChangeDictionary = new JButton("Change Dictionary " + coach.getDict());
-		btnChangeDictionary.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent arg0) { clickedChangeDict(); }});
+		btnChangeDictionary.addActionListener(new ActionListener() { @Override public void actionPerformed(ActionEvent arg0) { clickedChangeDict(); }});
 		btnChangeDictionary.setMnemonic('d');
 		btnChangeDictionary.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnChangeDictionary.setFocusable(false);
@@ -88,12 +88,12 @@ public class MainFrame extends JFrame
 
 		btnCheck = new JButton("Verify Answer");
 		btnCheck.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnCheck.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent arg0) { clickedCheck(); }});
+		btnCheck.addActionListener(new ActionListener() { @Override public void actionPerformed(ActionEvent arg0) { clickedCheck(); }});
 		mainPanel.add(btnCheck, "6, 4, 3, 1, fill, fill");
 
 		btnAddPhrase = new JButton("Add a new Phrase");
 		btnAddPhrase.setMnemonic('a');
-		btnAddPhrase.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent arg0) { clickedAdd(); }});
+		btnAddPhrase.addActionListener(new ActionListener() { @Override public void actionPerformed(ActionEvent arg0) { clickedAdd(); }});
 		btnAddPhrase.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnAddPhrase.setFocusable(false);
 		if(coach.getDict() == null)
@@ -102,7 +102,7 @@ public class MainFrame extends JFrame
 
 		btnOpenQueryConsole = new JButton("Open Query Console");
 		btnOpenQueryConsole.setMnemonic('o');
-		btnOpenQueryConsole.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent arg0) { clickedOpenQueryConsole(); }});
+		btnOpenQueryConsole.addActionListener(new ActionListener() { @Override public void actionPerformed(ActionEvent arg0) { clickedOpenQueryConsole(); }});
 		btnOpenQueryConsole.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		mainPanel.add(btnOpenQueryConsole, "6, 6, 3, 1, fill, fill");
 
@@ -186,7 +186,6 @@ public class MainFrame extends JFrame
 	private void clickedChangeDict()
 	{
 		coach.ChangeDictionary();
-
 	}
 
 	private void clickedOpenQueryConsole()

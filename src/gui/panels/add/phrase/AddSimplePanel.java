@@ -24,6 +24,7 @@ public class AddSimplePanel extends AddPhrasePanel
 		txt.setColumns(10);
 	}
 
+	@Override
 	public String getText()
 	{
 		if((txt.getText() == null) || (txt.getText().equals("")))
@@ -32,11 +33,13 @@ public class AddSimplePanel extends AddPhrasePanel
 			return txt.getText();
 	}
 
+	@Override
 	public void clear()
 	{
 		txt.setText("");
 	}
 
+	@Override
 	public Component[] getComponents()
 	{
 		Component[] comp = new Component[1];

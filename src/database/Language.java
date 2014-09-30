@@ -50,11 +50,13 @@ public class Language extends DBObject
 		return lang;
 	}
 
+	@Override
 	public String toString()
 	{
 		return name;
 	}
 
+	@Override
 	public void fillMembers(ResultSet rs) throws SQLException
 	{
 		 super.fillMembers(rs);
@@ -63,6 +65,7 @@ public class Language extends DBObject
 		 persPron = rs.getString("PersPron");
 	}
 
+	@Override
 	public String getTableName()
 	{
 		return tableInfo.tableName;

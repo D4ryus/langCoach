@@ -70,7 +70,7 @@ public class MultiInputPanel extends JPanel
 
 		txtAnswer0 = new JTextField();
 		txtAnswer0.setColumns(10);
-		txtAnswer0.addFocusListener(new FocusAdapter() { public void focusGained(FocusEvent arg0) { txtAnswer0.selectAll(); }});
+		txtAnswer0.addFocusListener(new FocusAdapter() { @Override public void focusGained(FocusEvent arg0) { txtAnswer0.selectAll(); }});
 		add(txtAnswer0, "4, 2, fill, fill");
 
 		lblConjug3 = new JLabel("New label");
@@ -79,7 +79,7 @@ public class MultiInputPanel extends JPanel
 
 		txtAnswer3 = new JTextField();
 		txtAnswer3.setColumns(10);
-		txtAnswer3.addFocusListener(new FocusAdapter() { public void focusGained(FocusEvent arg0) { txtAnswer3.selectAll(); }});
+		txtAnswer3.addFocusListener(new FocusAdapter() { @Override public void focusGained(FocusEvent arg0) { txtAnswer3.selectAll(); }});
 		add(txtAnswer3, "8, 2, fill, fill");
 
 		lblSolution0 = new JLabel("");
@@ -98,7 +98,7 @@ public class MultiInputPanel extends JPanel
 
 		txtAnswer1 = new JTextField();
 		txtAnswer1.setColumns(10);
-		txtAnswer1.addFocusListener(new FocusAdapter() { public void focusGained(FocusEvent arg0) { txtAnswer1.selectAll(); }});
+		txtAnswer1.addFocusListener(new FocusAdapter() { @Override public void focusGained(FocusEvent arg0) { txtAnswer1.selectAll(); }});
 		add(txtAnswer1, "4, 4, fill, fill");
 
 		lblConjug4 = new JLabel("New label");
@@ -107,15 +107,15 @@ public class MultiInputPanel extends JPanel
 
 		txtAnswer5 = new JTextField();
 		txtAnswer5.setColumns(10);
-		txtAnswer5.addFocusListener(new FocusAdapter() { public void focusGained(FocusEvent arg0) { txtAnswer5.selectAll(); }});
+		txtAnswer5.addFocusListener(new FocusAdapter() { @Override public void focusGained(FocusEvent arg0) { txtAnswer5.selectAll(); }});
 
 		txtAnswer2 = new JTextField();
 		txtAnswer2.setColumns(10);
-		txtAnswer2.addFocusListener(new FocusAdapter() { public void focusGained(FocusEvent arg0) { txtAnswer2.selectAll(); }});
+		txtAnswer2.addFocusListener(new FocusAdapter() { @Override public void focusGained(FocusEvent arg0) { txtAnswer2.selectAll(); }});
 
 		txtAnswer4 = new JTextField();
 		txtAnswer4.setColumns(10);
-		txtAnswer4.addFocusListener(new FocusAdapter() { public void focusGained(FocusEvent arg0) { txtAnswer4.selectAll(); }});
+		txtAnswer4.addFocusListener(new FocusAdapter() { @Override public void focusGained(FocusEvent arg0) { txtAnswer4.selectAll(); }});
 		add(txtAnswer4, "8, 4, fill, fill");
 
 		lblSolution1 = new JLabel("");
@@ -154,6 +154,7 @@ public class MultiInputPanel extends JPanel
 		lblSolutionComps = new JLabel[]{   lblSolution0, lblSolution1, lblSolution2, lblSolution3, lblSolution4, lblSolution5};
 	}
 
+	@Override
 	public Component[] getComponents()
 	{
 		return comps;

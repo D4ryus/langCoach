@@ -26,6 +26,7 @@ public class RandomPanel extends ExercisePanel
 		add(outPanel);
 	}
 
+	@Override
 	public boolean verify()
 	{
 		if(new Random().nextBoolean())

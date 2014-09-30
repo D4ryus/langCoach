@@ -103,6 +103,7 @@ public class AddConjugPanel extends AddPhrasePanel
 		setConjug(lang.persPron.split("#"));
 	}
 
+	@Override
 	public String getText()
 	{
 		if(checkInput())
@@ -129,12 +130,14 @@ public class AddConjugPanel extends AddPhrasePanel
 		return true;
 	}
 
+	@Override
 	public void clear()
 	{
 		for (JTextField i : components)
 			i.setText("");
 	}
 
+	@Override
 	public Component[] getComponents()
 	{
 		return components;

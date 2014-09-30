@@ -14,6 +14,7 @@ public class TabOrder extends FocusTraversalPolicy
 		this.tabOrder = tabOrder;
 	}
 
+	@Override
 	public Component getComponentAfter(Container arg0, Component arg1)
 	{
 		return tabOrder.get((tabOrder.indexOf(arg1) + 1) % tabOrder.size());

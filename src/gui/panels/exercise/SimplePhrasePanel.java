@@ -35,11 +35,13 @@ public class SimplePhrasePanel extends ExercisePanel
 			questionPanel.setText(getPhrase().phrase1);
 	}
 
+	@Override
 	public Component[] getComponents()
 	{
 		return answerPanel.getComponents();
 	}
 
+	@Override
 	public boolean verify()
 	{
 		String sol;

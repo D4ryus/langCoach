@@ -56,15 +56,15 @@ public class ChangeUserFrame extends JFrame
 		contentPane.add(comboBox, "2, 2, 5, 1, fill, default");
 
 		JButton btnOk = new JButton("Ok");
-		btnOk.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { clickedOk(); }});
+		btnOk.addActionListener(new ActionListener() { @Override public void actionPerformed(ActionEvent e) { clickedOk(); }});
 		contentPane.add(btnOk, "2, 4");
 
 		JButton btnCancel = new JButton("Cancel");
-		btnCancel.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { clickedCancel(); }});
+		btnCancel.addActionListener(new ActionListener() { @Override public void actionPerformed(ActionEvent e) { clickedCancel(); }});
 		contentPane.add(btnCancel, "4, 4");
 
 		JButton btnAdd = new JButton("Add");
-		btnAdd.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { clickedAdd(); }});
+		btnAdd.addActionListener(new ActionListener() { @Override public void actionPerformed(ActionEvent e) { clickedAdd(); }});
 		contentPane.add(btnAdd, "6, 4");
 
 		JRootPane rootPane = SwingUtilities.getRootPane(btnOk);

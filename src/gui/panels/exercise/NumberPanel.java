@@ -31,6 +31,7 @@ public class NumberPanel extends SimplePhrasePanel
 		super(phr);
 	}
 	
+	@Override
 	public void setText()
 	{
 		parsePhrase();
@@ -153,7 +154,6 @@ public class NumberPanel extends SimplePhrasePanel
 		String[] tmp2 = getPhrase().phrase2.split("[#]");
 		
 		System.arraycopy(tmp1,  0, swpPhr1,     0, swpPhr1.length);
-		System.out.println("first done");
 		System.arraycopy(tmp1,  3, nrPhr1_9,    0, nrPhr1_9.length);
 		System.arraycopy(tmp1, 13, nrPhr1_19,   0, nrPhr1_19.length);
 		System.arraycopy(tmp1, 23, nrPhr1_90,   0, nrPhr1_90.length);
@@ -182,6 +182,7 @@ public class NumberPanel extends SimplePhrasePanel
 				conPhr2[i] = "";
 	}
 	
+	@Override
 	public boolean verify()
 	{
 		String sol;

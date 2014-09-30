@@ -52,11 +52,13 @@ public class User extends DBObject
 		return user;
 	}
 
+	@Override
 	public String toString()
 	{
 		return name;
 	}
 
+	@Override
 	public void fillMembers(ResultSet rs) throws SQLException
 	{
 		 super.fillMembers(rs);
@@ -66,6 +68,7 @@ public class User extends DBObject
 		 logins = rs.getInt("Logins");
 	}
 
+	@Override
 	public PreparedStatement getUpdateStmt() throws SQLException
 	{
 		PreparedStatement ps = con.prepareStatement(
@@ -82,6 +85,7 @@ public class User extends DBObject
 		return ps;
 	}
 
+	@Override
 	public String getTableName()
 	{
 		return tableInfo.tableName;

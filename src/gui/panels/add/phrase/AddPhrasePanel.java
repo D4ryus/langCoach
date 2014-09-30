@@ -43,6 +43,7 @@ public class AddPhrasePanel extends JPanel
 
 	}
 
+	@Override
 	public Component[] getComponents()
 	{
 		return null;

@@ -26,6 +26,7 @@ public class ExercisePanel extends JPanel
 		perfPanel = new PerformancePanel();
 	}
 
+	@Override
 	public Component[] getComponents()
 	{
 		return null;

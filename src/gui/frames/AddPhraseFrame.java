@@ -76,16 +76,16 @@ public class AddPhraseFrame extends JFrame
 
 		cmbDict = new JComboBox<>(Dictionary.getDictionaries(coach.getCon()));
 		cmbDict.setSelectedItem(frameDictionary);
-		cmbDict.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent arg0) { clickedChangeDict(); }});
+		cmbDict.addActionListener(new ActionListener() { @Override public void actionPerformed(ActionEvent arg0) { clickedChangeDict(); }});
 		contentPane.add(cmbDict, "2, 2, fill, default");
 
 		cmbType = new JComboBox<String>(new String[]{"simple", "conjugation", "number"});
 		cmbType.setSelectedItem("simple");
-		cmbType.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent arg0) { clickedChangeType(); }});
+		cmbType.addActionListener(new ActionListener() { @Override public void actionPerformed(ActionEvent arg0) { clickedChangeType(); }});
 		contentPane.add(cmbType, "4, 2");
 		
 		btnConfirm = new JButton("Confirm");
-		btnConfirm.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent arg0) { clickedConfirm(); }});
+		btnConfirm.addActionListener(new ActionListener() { @Override public void actionPerformed(ActionEvent arg0) { clickedConfirm(); }});
 		contentPane.add(btnConfirm, "2, 9, 3, 1");
 
 		mainPanel = new JPanel();

@@ -74,6 +74,7 @@ public class Performance extends DBObject
 		return perf;
 	}
 
+	@Override
 	public void fillMembers(ResultSet rs) throws SQLException
 	{
 		super.fillMembers(rs);
@@ -88,6 +89,7 @@ public class Performance extends DBObject
 		revLastFail    = rs.getTimestamp("RevLastFail");
 	}
 
+	@Override
 	public PreparedStatement getUpdateStmt() throws SQLException
 	{
 		PreparedStatement ps = con.prepareStatement(
@@ -140,6 +142,7 @@ public class Performance extends DBObject
 		return perf;
 	}
 
+	@Override
 	public String getTableName()
 	{
 		return tableInfo.tableName;

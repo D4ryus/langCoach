@@ -58,7 +58,7 @@ public class QueryFrame extends JFrame
 
 		JButton btnQuery = new JButton("Evaluate");
 		btnQuery.setMnemonic('e');
-		btnQuery.addActionListener(new ActionListener(){ public void actionPerformed(ActionEvent e) { clicked_eval(); }});
+		btnQuery.addActionListener(new ActionListener(){ @Override public void actionPerformed(ActionEvent e) { clicked_eval(); }});
 		getContentPane().add(btnQuery, "6, 2");
 
 		JScrollPane scrollPane = new JScrollPane(logField = new JTextArea());
@@ -168,21 +168,25 @@ class QueryTableModel extends AbstractTableModel
 		}
 	}
 
+	@Override
 	public String getColumnName(int i)
 	{
 		return headers[i];
 	}
 
+	@Override
 	public int getColumnCount()
 	{
 		return columns;
 	}
 
+	@Override
 	public int getRowCount()
 	{
 		return tmp.size();
 	}
 
+	@Override
 	public Object getValueAt(int row, int col)
 	{
 		return ((String[]) tmp.elementAt(row))[col];
