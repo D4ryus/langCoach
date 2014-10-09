@@ -133,24 +133,24 @@ public class PerformancePanel extends JPanel
 
 			int w = size.width  - insets.left - insets.right;
 			int h = size.height - insets.top  - insets.bottom;
-			int middle = w/2;
+			int middle = w >> 1;
 			
 			g2d.setColor(Color.BLACK);
-			g2d.drawLine(0, h/2, w, h/2);
-			g2d.drawLine(w/2, 0, w/2, h);
+			g2d.drawLine(0, h >> 1, w, h >> 1);
+			g2d.drawLine(w >> 1, 0, w >> 1, h);
 			
 			int barLength = 0;
 			int barHeight = 0;
 			if (max != 0)
 			{
 				barLength = (int)((double)middle/(double)max * (double)(success < 0 ? -1 * success : success));
-				barHeight = h-11;
+				barHeight = h - 11;
 			}
 				
 			if (success > 0)
 			{
 				g2d.setColor(Color.GREEN);
-				g2d.fillRect(middle+1, 5, barLength, barHeight);
+				g2d.fillRect(middle + 1, 5, barLength, barHeight);
 			}
 			else if (success < 0)
 			{
